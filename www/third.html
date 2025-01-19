@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+          $(document).ready(function() {
+              // Dohvati aerodrom iz URL-a
+              var urlParams = new URLSearchParams(window.location.search);
+              var airportName = urlParams.get('airport');
+      
+              // Provjeri jesmo li dobili aerodrom
+              if (airportName) {
+                  // Postavi ime aerodroma na trećoj stranici
+                  $('#airportName').text(airportName);
+      
+                  // Ovdje možete izvesti AJAX poziv kako biste dobili dodatne podatke o aerodromu
+                  // i ažurirati #airportDetails s tim podacima.
+                  
+                  // Primjer AJAX poziva (prilagodite prema stvarnim potrebama API-ja):
+                  $.ajax({
+                      method: 'GET',
+                      url: 'https://api.api-ninjas.com/v1/airports?name=' + airportName,
+                      headers: { 'X-Api-Key': 'd9rLLqtae8uLfBXogYJcJg==GU3hDuwHLeAnN1CK'},
+                      contentType: 'application/json',
+                      success: function(result) {
+                          updateAirportDetails(result[0]); // Pretpostavljamo da će API vratiti samo jedan aerodrom
+                      },
+                      error: function ajaxError(jqXHR) {
+                          console.error('Error: ', jqXHR.responseText);
+                      }
+                  });
+              } else {
+                  // Ako nema aerodroma u URL-u, možete preusmjeriti korisnika natrag na drugu stranicu ili prikazati poruku.
+                  console.error('Airport name not provided in the URL.');
+              }
+      
+              // Funkcija za ažuriranje detalja aerodroma
+              function updateAirportDetails(airport) {
+                  var airportDetailsElement = $('#airportDetails');
+                  airportDetailsElement.empty();
+      
+                  var details = [
+                      '<strong>International Civil Aviation Organization:</strong> ' + airport.icao,
+                      '<strong>International Air Transport Association:</strong> ' + airport.iata,
+                      '<strong>City:</strong> ' + airport.city,
+                      '<strong>Region:</strong> ' + airport.region,
+                      '<strong>Country:</strong> ' + airport.country,
+                      '<strong>Timezone:</strong> ' + airport.timezone
+                      // Dodajte ostale detalje prema potrebi
+                  ];
+      
+                  details.forEach(function(detail) {
+                      var listItem = '<li class="list-group-item ">' + detail + '</li>';
+                      airportDetailsElement.append(listItem);
+                  });
+              }
+          });
+      </script>
+      
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, please refer to the docs:
+            https://cordova.apache.org/docs/en/latest/
+        Some notes:
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://api.api-ninjas.com https://cdn.jsdelivr.net data: gap: https://ssl.gstatic.com 'unsafe-eval'; script-src 'self' https://code.jquery.com 'unsafe-inline'; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; media-src *">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Poppins&display=swap">
+        <link rel="stylesheet" href="css/index.css">
+        
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row mt-5 mb-5 ms-3 me-3 align-items-center ">
+              <!-- Lijeva kolona za ikonu -->
+              <div class="col-6 ">
+                <a href="second.html">
+                <i class="icon">
+                    <div class="circle">
+                      <img src="assets/chevron-left.png" alt="Strelica">
+                    </div>
+                  </i>
+                </a>
+              </div>
+              <!-- Desna kolona  -->
+             <div class="col-6"> 
+                <!--<img src="assets/org oblak veci.png" alt="Oblak"> -->
+              </div>
+            </div>
+            <!-- Tekst ispod ikone i slike oblaka -->
+            <div class="row m-2 ms-3 me-3 mb-3">
+              <div class="col-12">
+                <h1 class="text-left">Airport:</h1>
+              </div>
+            </div>
+            <!-- Tabela ispod search bara -->
+            <div class="row m-3">
+              <div class="col-12 d-flex justify-content-center align-items-center">
+                  <div class="card shadow" style="width: 25rem;">
+                      <img src="assets/luka.jpg" class="card-img-top" alt="...">
+                      <div class="card-body">
+                          <h2 class="card-title" style="color: #444ADD;" id="airportName"></h2>
+                      </div>
+                      <ul class="list-group list-group-flush custom-border" id="airportDetails">
+                          <!-- Airport details will be dynamically populated here -->
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          
+        </div>
+        <script src="js/index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+    </body>
+</html>
