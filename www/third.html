@@ -22,7 +22,7 @@
                   $.ajax({
                       method: 'GET',
                       url: 'https://api.api-ninjas.com/v1/airports?name=' + airportName,
-                      headers: { 'X-Api-Key': 'd9rLLqtae8uLfBXogYJcJg==GU3hDuwHLeAnN1CK'},
+                      headers: { 'X-Api-Key': ''},
                       contentType: 'application/json',
                       success: function(result) {
                           updateAirportDetails(result[0]); // Pretpostavljamo da će API vratiti samo jedan aerodrom
