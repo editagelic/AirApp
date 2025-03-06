@@ -1,2 +1,2 @@
 # AirApp
-ApacheCordova
+AirApp is a mobile application for searching airports worldwide, developed using the Cordova framework. The app utilizes Bootstrap for responsive styling and jQuery for dynamic content handling. It consists of three main screens: the home screen with a search button and graphical elements, the search screen where users can enter a city name to find airports, and the details screen displaying comprehensive information about a selected airport. The application retrieves airport data using the Ninjas API, dynamically updating the UI based on user input. Designed for mobile devices, AirApp offers a smooth and intuitive user experience. The app can be customized by modifying Bootstrap styles and jQuery functionalities to fit specific needs.
